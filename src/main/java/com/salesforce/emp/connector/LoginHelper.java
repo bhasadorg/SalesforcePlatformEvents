@@ -138,9 +138,15 @@ public class LoginHelper {
                     String.format("Unable to login: %s", parser.faultstring)); }
 
             URL soapEndpoint = new URL(parser.serverUrl);
+            System.out.println("Parser.serverurl : " + parser.serverUrl);
             String cometdEndpoint = Float.parseFloat(parameters.version()) < 37 ? COMETD_REPLAY_OLD : COMETD_REPLAY;
+            System.out.println("cometdEndpoint : " + cometdEndpoint);
+            
             URL replayEndpoint = new URL(soapEndpoint.getProtocol(), soapEndpoint.getHost(), soapEndpoint.getPort(),
                     new StringBuilder().append(cometdEndpoint).append(parameters.version()).toString());
+            System.out.println("replayEndpoint : " + soapEndpoint.getProtocol() + soapEndpoint.getHost() + soapEndpoint.getPort() +
+                    new StringBuilder().append(cometdEndpoint).append(parameters.version()).toString());
+            
             System.out.println(replayEndpoint.toString());
             return new DelegatingBayeuxParameters(parameters) {
                 @Override
