@@ -79,14 +79,14 @@ public class LoginHelper {
 
     public static final String COMETD_REPLAY = "/cometd/";
     public static final String COMETD_REPLAY_OLD = "/cometd/replay/";
-    static final String LOGIN_ENDPOINT = "https://login.salesforce.com";
+    static final String LOGIN_ENDPOINT = "https://test.salesforce.com";
     private static final String ENV_END = "</soapenv:Body></soapenv:Envelope>";
     private static final String ENV_START = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' "
             + "xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' "
             + "xmlns:urn='urn:partner.soap.sforce.com'><soapenv:Body>";
 
     // The enterprise SOAP API endpoint used for the login call
-    private static final String SERVICES_SOAP_PARTNER_ENDPOINT = "/services/Soap/u/22.0/";
+    private static final String SERVICES_SOAP_PARTNER_ENDPOINT = "/services/Soap/u/41.0/";
 
     public static BayeuxParameters login(String username, String password) throws Exception {
         return login(new URL(LOGIN_ENDPOINT), username, password);
@@ -141,6 +141,7 @@ public class LoginHelper {
             String cometdEndpoint = Float.parseFloat(parameters.version()) < 37 ? COMETD_REPLAY_OLD : COMETD_REPLAY;
             URL replayEndpoint = new URL(soapEndpoint.getProtocol(), soapEndpoint.getHost(), soapEndpoint.getPort(),
                     new StringBuilder().append(cometdEndpoint).append(parameters.version()).toString());
+            System.out.println(replayEndpoint.toString());
             return new DelegatingBayeuxParameters(parameters) {
                 @Override
                 public String bearerToken() {

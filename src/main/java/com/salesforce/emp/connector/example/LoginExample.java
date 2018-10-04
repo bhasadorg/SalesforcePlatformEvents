@@ -55,6 +55,7 @@ public class LoginExample {
         connector.setBearerTokenProvider(tokenProvider);
 
         connector.start().get(5, TimeUnit.SECONDS);
+        System.out.println("EMP Connector Started");
 
         TopicSubscription subscription = connector.subscribe(argv[2], replayFrom, consumer).get(5, TimeUnit.SECONDS);
 
